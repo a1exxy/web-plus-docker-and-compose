@@ -1,0 +1,6 @@
+.idea/
+/.env
+/*.private
+*/node_models/
+*/dist/
+*/build/

@@ -1,0 +1,23 @@
+- hosts: all
+  gather_facts: false
+
+  pre_tasks:
+    - name: Show env
+      debug:
+        msg: "{{ hostvars }}"
+    - name: Show ansible_ssh_host
+      debug:
+        msg: "{{ ansible_ssh_host }}"
+    - name: Write the new instance host key to known hosts
+      connection: local
+      become: false
+      shell: | 
+        ssh-keygen -F {{ ansible_ssh_host }} || 
+        ssh-keyscan -H {{ ansible_ssh_host }} >> ~/.ssh/known_hosts
+      register: known_hosts
+      changed_when: "'found' not in known_hosts.stdout"
+
+  roles:
+    - firewall
+    - docker-host
+    - nginx-host

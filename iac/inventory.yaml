@@ -1,0 +1,16 @@
+all:
+  hosts:
+    webapp:
+      ansible_port: 22
+      ansible_ssh_host: "{{ lookup('ansible.builtin.env','DEPLOY_HOST') }}"
+      ansible_user: "{{ lookup('ansible.builtin.env','DEPLOY_USER') }}"
+      ansible_ssh_private_key_file: "{{ lookup('ansible.builtin.env','VM_SSH_PRIVATE_KEY_FILE') }}"
+      ansible_python_interpreter: "/usr/bin/python3"
+  vars:
+    MGMT_HOST: "{{ lookup('ansible.builtin.env','MGMT_HOST') }}"
+    FRONT_DOMAIN: "{{ lookup('ansible.builtin.env','FRONT_DOMAIN') }}"
+    BACKEND_DOMAIN: "{{ lookup('ansible.builtin.env','BACKEND_DOMAIN') }}"
+    CERTBOT_EMAIL: "{{ lookup('ansible.builtin.env','CERTBOT_EMAIL') }}"
+    GITHUB_SSH_PRIVATE_KEY_FILE: "{{ lookup('ansible.builtin.env','GITHUB_SSH_PRIVATE_KEY_FILE') }}"
+    FRONT_PORT: "{{ lookup('ansible.builtin.env','FRONT_PORT') }}"
+    BACK_PORT: "{{ lookup('ansible.builtin.env','BACK_PORT') }}"

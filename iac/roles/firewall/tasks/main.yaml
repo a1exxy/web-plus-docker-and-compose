@@ -1,0 +1,30 @@
+- name: Add deploy host to UFW
+  become: true
+  ufw:
+    rule: allow
+    src: "{{ MGMT_HOST }}"
+    port: ssh
+    proto: tcp
+
+- name: Add SSH port to UFW
+  become: true
+  ufw:
+    rule: limit
+    port: ssh
+    proto: tcp
+
+- name: Drop everything and enable UFW
+  become: true
+  ufw:
+    state: enabled
+    policy: deny
+
+- name: Add HTTP(S) port to UFW
+  become: true
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  loop:
+    - http
+    - https

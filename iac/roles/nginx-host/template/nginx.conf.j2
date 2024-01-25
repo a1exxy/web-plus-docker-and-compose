@@ -1,0 +1,42 @@
+server {
+    listen 80 default_server;
+    listen 443 ssl default_server;
+    server_name "";
+    ssl_certificate /etc/nginx/null.crt;
+    ssl_certificate_key /etc/nginx/null.key;
+    return 302 https://{{ FRONT_DOMAIN }};
+    # return 444; # пустой ответ
+
+}
+server {
+    listen 80;
+
+    server_name {{ FRONT_DOMAIN }};
+
+    location / {
+      proxy_pass http://localhost:{{ FRONT_PORT }};
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_http_version 1.1; # задает версию http для прокси
+      proxy_set_header Upgrade $http_upgrade; # необходим для проксирования WebSocket-соединений
+      proxy_set_header Connection 'upgrade';  # необходим для проксирования WebSocket-соединений
+      proxy_set_header Host $host; # Содержит адрес домена, на который пришел запрос
+      proxy_cache_bypass $http_upgrade;
+    }
+}
+server {
+    listen 80;
+
+    server_name {{ BACKEND_DOMAIN }};
+
+    location / {
+      proxy_pass http://localhost:{{ BACK_PORT }};
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_http_version 1.1; # задает версию http для прокси
+      proxy_set_header Upgrade $http_upgrade; # необходим для проксирования WebSocket-соединений
+      proxy_set_header Connection 'upgrade';  # необходим для проксирования WebSocket-соединений
+      proxy_set_header Host $host; # Содержит адрес домена, на который пришел запрос
+      proxy_cache_bypass $http_upgrade;
+    }
+}

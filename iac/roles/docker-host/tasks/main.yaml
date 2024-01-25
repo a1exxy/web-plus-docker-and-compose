@@ -1,0 +1,14 @@
+- name: Install required system packages
+  become: true
+  apt:
+    pkg:
+      - docker.io
+      - docker-compose
+      - wget
+    state: present
+    update_cache: true
+
+- name: Add permission
+  become: true
+  shell: "usermod -aG docker {{ ansible_user }}"
+  tags: docker
