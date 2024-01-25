@@ -1,0 +1,47 @@
+### Логин
+POST localhost:3000/signin
+Content-Type: application/json
+
+{
+  "username": "test1",
+  "password": "test1"
+}
+
+> {%
+  client.global.set("access_token", response.body.access_token);
+%}
+
+### Создание листа подарков
+POST localhost:3000/wishlistlists
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "Тестовый список",
+  "image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "description": "about list...",
+  "itemsId": [10,11,12]
+}
+
+### Все листы подарков
+GET localhost:3000/wishlistlists
+Authorization: Bearer {{access_token}}
+
+> {%
+  client.global.set("wishlistId", response.body[0].id);
+%}
+
+### конкретный лист подарков
+GET localhost:3000/wishlistlists/{{wishlistId}}
+Authorization: Bearer {{access_token}}
+
+### Обновление листа подарков
+PATCH localhost:3000/wishlistlists/{{wishlistId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "description": "new description"
+}
+
+

@@ -1,0 +1,61 @@
+### Логин
+POST localhost:3000/signin
+Content-Type: application/json
+
+{
+  "username": "test1",
+  "password": "test1test1"
+}
+
+> {%
+  client.global.set("access_token", response.body.access_token);
+%}
+
+### Создание подарка
+POST localhost:3000/wishes
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "name": "aaa",
+  "description": "Конфеты",
+  "link": "https://pixabay.tumblr.com/image/184803701469",
+  "image": "https://64.media.tumblr.com/43920aa0934eddcaa7c330d949a91d50/tumblr_prcg0xMJVX1tawn8uo1_1280.jpg",
+  "price": 100
+}
+
+### All
+GET localhost:3000/wishes/all
+
+### Top
+GET localhost:3000/wishes/top
+
+### Last
+GET localhost:3000/wishes/last
+
+> {%
+  client.global.set("wishId", response.body[0].id);
+%}
+
+### Запрос конкретного подарка
+GET localhost:3000/wishes/{{wishId}}
+
+### Запрос конкретного подарка
+GET localhost:3000/wishes/1
+
+### Удаление подарка
+DELETE localhost:3000/wishes/{{wishId}}
+Authorization: Bearer {{access_token}}
+
+### Изменение подарка
+PATCH localhost:3000/wishes/{{wishId}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "name": "eeee"
+}
+
+### Копирование подарка
+POST localhost:3000/wishes/{{wishId}}/copy
+Authorization: Bearer {{access_token}}

@@ -1,8 +1,8 @@
 
+docker-compose.yml
 /.idea/
 /.env
-*/node_modules/
-*/Dockerfile
-docker-compose.yml
-*/dist/
-*/build/
+/{frontend,backend}/node_modules/
+/{frontend,backend}/Dockerfile
+/{frontend,backend}/dist/
+/{frontend,backend}/build/

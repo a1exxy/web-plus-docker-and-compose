@@ -1,0 +1,42 @@
+### Логин
+POST localhost:3000/signin
+Content-Type: application/json
+
+{
+  "username": "test1",
+  "password": "test1"
+}
+
+> {%
+  client.global.set("access_token", response.body.access_token);
+%}
+
+### Last
+GET localhost:3000/wishes/last
+
+> {%
+  client.global.set("wishId", response.body[0].id);
+%}
+
+### Создание заявки
+POST localhost:3000/offers
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "itemId": {{wishId}},
+  "amount": 10.22,
+  "hidden": false
+}
+
+### Все предложения
+GET localhost:3000/offers
+Authorization: Bearer {{access_token}}
+
+> {%
+  client.global.set("offerId", response.body[0].id);
+%}
+
+### Конкретное приложение
+GET localhost:3000/offers/{{offerId}}
+Authorization: Bearer {{access_token}}

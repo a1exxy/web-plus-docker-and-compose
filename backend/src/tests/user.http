@@ -1,0 +1,41 @@
+### Логин
+POST localhost:3000/signin
+Content-Type: application/json
+
+{
+  "username": "test3",
+  "password": "test3test3"
+}
+
+> {%
+  client.global.set("access_token", response.body.access_token);
+%}
+
+### Запрос данных о себе
+GET localhost:3000/users/me
+Authorization: Bearer {{access_token}}
+
+### Запрос данных о USERNAME
+GET localhost:3000/users/test1
+Authorization: Bearer {{access_token}}
+
+### НЕГАТИВ Запрос данных о несуществующем Username
+GET localhost:3000/users/fakeUser
+Authorization: Bearer {{access_token}}
+
+### Запрос подарков для USERNAME
+GET localhost:3000/users/test2/wishes
+Authorization: Bearer {{access_token}}
+
+### Запрос своих подарков
+GET localhost:3000/users/me/wishes
+Authorization: Bearer {{access_token}}
+
+### Обновление данных о себе
+PATCH localhost:3000/users/me
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "about": "qqqq123"
+}

@@ -1,0 +1,38 @@
+### Создание пользователя
+POST localhost:3000/signup
+Content-Type: application/json
+
+{
+  "username": "test9",
+  "email": "test9@example.com",
+  "password": "test9test9",
+  "about": "test9",
+  "avatar": "https://i.pravatar.cc/150?img=40"
+}
+
+> {%
+  // client.global.set("id", response.body.id);
+  // client.global.set("username", response.body.username);
+  client.global.set("access_token", response.body.access_token);
+%}
+
+#### Запрос пользователя по имяни
+#GET localhost:3000/users/{{username}}
+
+
+### Удаление пользователя
+DELETE localhost:3000/users
+Authorization: Bearer {{access_token}}
+
+### Логин
+POST localhost:3000/signin
+Content-Type: application/json
+
+{
+  "username": "test8",
+  "password": "test8"
+}
+
+> {%
+  client.global.set("access_token", response.body.access_token);
+  %}

@@ -1,6 +1,6 @@
 .idea/
 /.env
 /*.private
-*/node_models/
-*/dist/
-*/build/
+/{frontend,backend}/node_models/
+/{frontend,backend}/dist/
+/{frontend,backend}/build/
