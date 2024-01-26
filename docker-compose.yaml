@@ -33,7 +33,7 @@ services:
     ports:
       - ${BACK_PORT}:3000
     healthcheck:
-      test: "wget -nv -t1 --spider 'http://localhost:'${BACK_PORT}'/'"
+      test: "wget -nv -t1 --spider 'http://localhost:3000'/'"
       interval: 1m30s
       timeout: 10s
       retries: 3
@@ -53,7 +53,7 @@ services:
     ports:
       - ${FRONT_PORT}:80
     healthcheck:
-      test: "/usr/bin/wget -nv -t1 --spider 'http://localhost:${FRONT_PORT}/'"
+      test: "wget -nv -t1 --spider 'http://localhost:80/'"
       interval: 1m30s
       timeout: 10s
       retries: 3
