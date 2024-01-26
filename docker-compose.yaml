@@ -46,7 +46,7 @@ services:
     build:
       context: frontend
       args:
-        REACT_APP_API_URL: https://${FRONT_DOMAIN}
+        REACT_APP_API_URL: https://${BACKEND_DOMAIN}
     restart: unless-stopped
     volumes:
       - ./frontend/nginx/openresty.conf:/etc/nginx/conf.d/default.conf:ro
