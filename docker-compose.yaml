@@ -49,7 +49,8 @@ services:
         REACT_APP_API_URL: https://${BACKEND_DOMAIN}
     restart: unless-stopped
     volumes:
-      - ./frontend/nginx/openresty.conf:/etc/nginx/conf.d/default.conf:ro
+#      - ./frontend/nginx/openresty.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./frontend/nginx/default.conf:/etc/nginx/sites-available/default:ro
     ports:
       - ${FRONT_PORT}:80
     healthcheck:

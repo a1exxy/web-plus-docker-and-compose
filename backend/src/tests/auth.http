@@ -29,8 +29,8 @@ POST localhost:3000/signin
 Content-Type: application/json
 
 {
-  "username": "test8",
-  "password": "test8"
+  "username": "test9",
+  "password": "test9test9"
 }
 
 > {%
